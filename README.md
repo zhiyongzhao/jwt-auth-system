@@ -34,21 +34,25 @@ markdown
 ## 快速开始
 
 ### 安装依赖
-
 1. 克隆仓库
 ```bash
 git clone https://github.com/your-username/jwt-auth-system.git
-cd jwt-auth-system```
+cd jwt-auth-system
+```
+
 2. 安装后端依赖
 ```bash
 cd backend
-npm install```
+npm install
+``` 
 3. 安装前端依赖
 ```bash
 cd ../frontend
-npm install```
+npm install
+```
 
 ### 配置
+
 1. 后端配置
 创建 .env 文件在 backend 目录下:
 ```ini
@@ -58,21 +62,26 @@ MONGODB_URI=mongodb://localhost:27017/jwt-auth-system
 JWT_SECRET=your-secret-key
 JWT_EXPIRES_IN=1h
 REFRESH_TOKEN_SECRET=your-refresh-secret-key
-REFRESH_TOKEN_EXPIRES_IN=7d```
+REFRESH_TOKEN_EXPIRES_IN=7d
+```
 2. 前端配置
 如果需要，可以在 frontend/src/services/api.js 中修改 API 地址:
 ```javascript
-const API_URL = 'http://localhost:5000/api';```
+const API_URL = 'http://localhost:5000/api';
+```
 
 ### 运行
+
 1. 启动后端服务器
 ```bash
 cd backend
-npm run dev```
+npm run dev
+```
 2. 启动前端开发服务器
 ```bash
 cd frontend
-npm start```
+npm start
+```
 访问 http://localhost:3000 查看应用。
 
 ## 中间件架构设计
@@ -87,3 +96,25 @@ npm start```
 - 支持多角色和精细权限管理
 
 ### 中间件配置选项
+```javascript
+const jwtAuth = new JwtAuthMiddleware({
+  // 必需选项
+  secret: 'your-secret-key',              // JWT 密钥
+  
+  // 可选配置
+  expiresIn: '1h',                        // 访问令牌过期时间
+  refreshExpiresIn: '7d',                 // 刷新令牌过期时间
+  algorithm: 'HS256',                     // 签名算法
+  issuer: 'your-app-name',                // 令牌发行者
+  audience: 'your-app-client',            // 令牌接收者
+  tokenType: 'Bearer',                    // 令牌类型
+  refreshTokenSecret: 'refresh-secret',   // 刷新令牌密钥
+  autoRefresh: true,                      // 是否自动刷新令牌
+  autoRefreshThreshold: 300,              // 刷新阈值（秒）
+  customUserKey: 'user',                  // 用户对象在请求中的键
+  errorHandler: null,                     // 自定义错误处理函数
+  excludedPaths: ['/api/auth/login'],     // 排除的路径
+  authorizationHeader: 'Authorization'    // 认证头名称
+});
+```
+### 使用方式
