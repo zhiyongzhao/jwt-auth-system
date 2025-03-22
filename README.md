@@ -39,13 +39,14 @@ markdown
 
 ```bash
 git clone https://github.com/your-username/jwt-auth-system.git
-cd jwt-auth-system
-安装后端依赖
-bash
+cd jwt-auth-system```
 
-复制
+2. 安装后端依赖
+
+```bash
 cd backend
-npm install
+npm install```
+
 安装前端依赖
 bash
 
